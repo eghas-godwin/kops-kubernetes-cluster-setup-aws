@@ -50,6 +50,11 @@ You Created. --> Save.
 
 
 
+### create a private rout53 and use the same name as your cluster name in export NAME=s3://legah2045.k8.local
+### if your route53 name is nt.k8.local then your *******export NAME=nt.k8.local
+
+
+
 6) create an S3 bucket Execute below commond in KOPS Server use unique bucket name if you get bucket name exists error.
 
 	aws s3 mb s3://nubonglegah.k8.local
