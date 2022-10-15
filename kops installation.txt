@@ -80,7 +80,7 @@ You Created. --> Save.
 #    vi .bashrc                                                      
 #	                                                             
 #	# Give Unique Name And S3 Bucket which you created.          
-#	export NAME=ntechcluster.k8.local    #This is the cluster name
+#	export NAME=nt.k8.local    #This is the cluster name
 #	export KOPS_STATE_STORE=s3://ntech.k8.local       #This is the bucket name           
 ======================================================================
 	
@@ -99,6 +99,30 @@ You Created. --> Save.
 	
 #####	kops create cluster --zones us-east-1a --networking weave --master-size t2.medium --master-count 1 --node-size t2.micro --node-count=2 ${NAME}
 #####   kops create secret --name ${NAME} sshpublickey admin -i ~/.ssh/id_rsa.pub
+
+
+#####   kops create cluster --zones us-east-1a --master-size t2.medium --master-count 1 --node-size t2.micro --node-count=2 ${NAME}
+
+kops create cluster \
+--state=${KOPS_STATE_STORE} \
+--node-count=2 \
+--master-size=t2.medium \
+--node-size=t2.micro \
+--zones=us-east-1a \
+--name=${NAME} \
+--dns private \
+--master-count 1
+
+kops create cluster \
+--state=${KOPS_STATE_STORE} \
+--node-count=2 \
+--master-size=t3.medium \
+--node-size=t3.medium \
+--zones=ap-south-1a,ap-south-1b \
+--name=${NAME} \
+--dns private \
+--master-count 1
+
 
 9) Create kubernetes cluser
 
