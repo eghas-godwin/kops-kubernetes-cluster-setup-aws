@@ -51,6 +51,7 @@ You Created. --> Save.
 6) create an S3 bucket Execute below commond in KOPS Server use unique bucket name if you get bucket name exists error.
 
 	aws s3 mb s3://nubonglegah.k8.local
+	#aws s3 mb ntech.k8.local
 	aws s3 ls
 	
     ex:
@@ -67,6 +68,14 @@ You Created. --> Save.
 	export KOPS_STATE_STORE=s3://legah2045.k8.local
  
     source .bashrc
+   ===================================================================
+#### Add env variables in bashrc                                     
+#    vi .bashrc                                                      
+#	                                                             
+#	# Give Unique Name And S3 Bucket which you created.          
+#	export NAME=ntechcluster.k8.local    #This is the cluster name
+#	export KOPS_STATE_STORE=s3://ntech.k8.local       #This is the bucket name           
+======================================================================
 	
 7) Create sshkeys before creating cluster
 
