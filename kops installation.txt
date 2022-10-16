@@ -51,14 +51,14 @@ You Created. --> Save.
 
 
 ### create a private rout53 and use the same name as your cluster name in export NAME=s3://legah2045.k8.local
-### if your route53 name is ntech.k8.local then your *******export NAME=nt.k8.local
+### if your route53 name is ntech.k8.local then your *******export NAME=ntech.k8.local
 
 
 
 6) create an S3 bucket Execute below commond in KOPS Server use unique bucket name if you get bucket name exists error.
 
 	aws s3 mb s3://nubonglegah.k8.local
-	#aws s3 mb s3ntech.k8.local
+	#aws s3 mb s3://s3ntech.k8.local --region us-east-1
 	aws s3 ls
 	
     ex:
@@ -77,11 +77,16 @@ You Created. --> Save.
     source .bashrc
    ===================================================================
 #### Add env variables in bashrc                                     
-#    vi .bashrc                                                      
-#	                                                             
-#	# Give Unique Name And S3 Bucket which you created.          
-#	export NAME=ntech.k8.local    #This is the cluster name
-#	export KOPS_STATE_STORE=s3://s3ntech.k8.local       #This is the bucket name           
+    vi .bashrc                                                      
+	                                                             
+	# Give Unique Name And S3 Bucket which you created.          
+	export NAME=ntech.k8.local    #This is the cluster name
+	export KOPS_STATE_STORE=s3://s3ntech.k8.local       #This is the bucket name           
+                OR
+	export KOPS_CLUSTER_NAME=ntech.k8.local 
+	export KOPS_STATE_STORE=s3://s3ntech.k8.local
+	
+source .bashrc	
 ======================================================================
 	
 7) Create sshkeys before creating cluster
@@ -97,11 +102,10 @@ You Created. --> Save.
 
 	kops create secret --name ${NAME} sshpublickey admin -i ~/.ssh/id_rsa.pub
 	
-#####	kops create cluster --zones us-east-1a --networking weave --master-size t2.medium --master-count 1 --node-size t2.micro --node-count=2 ${NAME}
+#####	kops create cluster --zones us-east-1a,zones us-east-1c --dns private --master-size t2.medium --master-count 1 --node-size t2.micro --node-count=2 ${NAME}
 #####   kops create secret --name ${NAME} sshpublickey admin -i ~/.ssh/id_rsa.pub
 
 
-#####   kops create cluster --zones us-east-1a --master-size t2.medium --master-count 1 --node-size t2.micro --node-count=2 ${NAME}
 
 kops create cluster \
 --state=${KOPS_STATE_STORE} \
